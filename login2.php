@@ -10,6 +10,24 @@
 
 	$row = $result->fetch_array();
 
-	$_SESSION['user'] = $row;
+	//var_dump($row['user']); die;
 
-	header("location:list.php");
+	if(isset($row)) {
+		$_SESSION['user'] = $row;
+		header("location:list.php");
+	} else {
+		$message = "Sorry, $user is not registered for this app. Please register.";
+		echo "<script>alert('$message');</script>"; 
+		echo "<script>
+			//Using setTimeout to execute a function after 3 seconds.
+			setTimeout(function () {
+			   //Redirect with JavaScript
+			   window.location.href= 'http://joshuacintolo.com/projects/groceries/grocery.php';
+			}, 3000);
+			</script>";
+		session_destroy(); 
+	}
+
+	// $_SESSION['user'] = $row;
+
+	// header("location:list.php");
